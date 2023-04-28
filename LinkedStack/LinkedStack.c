@@ -36,6 +36,27 @@ void Push(stack_entry element, Stack *ps)
 
 }
 
+int Stack_Empty(Stack *ps)
+{
+    if(ps->top == NULL)
+        return 1;
+    else return 0;
+}
+
+stack_entry Pop(Stack *ps)
+{
+    StackNode *pn = ps->top->next;
+    stack_entry element;
+    if(!Stack_Empty(&ps))
+    {
+        element = ps->top->value;
+        free(ps->top);
+        ps->top = pn;
+        ps->stack_size--;
+        return element;
+    }
+}
+
 stack_entry Stack_mid_element(Stack *ps)
 {
     return ps->mid->value;
@@ -93,4 +114,56 @@ void Copy_Stack(Stack *ps, Stack *Copy)
     {
         Push(arr[(ps->stack_size)-i],&Copy);
     }
+}
+
+int Check_String(char *str, Stack *ps)
+{
+    char i = 0, flag_1 = 0, flag_2 = 0, flag_3 = 0, c = 0;
+    char e;
+    StackNode *p_0 = ps->top->value;
+    while(str[i]!= '\0')
+    {
+        Push(str[i],&ps);
+        i++;
+    }
+    printf("the string pushed to the stack\n");
+    i = 0;
+    while(ps->stack_size)
+    {
+        e = Pop(&ps);
+        ps->stack_size--;
+        if(i = 0 && (e == '[' || e == '{' || e == '(' ) )
+            return 0;
+        else{
+            if(e == ']' && (i || i == 0))
+                flag_1 = i;
+            if(e == '}' && (i || i == 0))
+                flag_2 = i;
+            if(e == ')' && (i || i == 0))
+                flag_3 = i;
+            if(e == '[')
+            {
+                if(c > flag_1)
+                    flag_1 = 1;
+                else return 0;
+            }
+            if(e == '{')
+            {
+                if(c > flag_2)
+                    flag_2 = 1;
+                else return 0;
+            }
+            if(e == '(')
+            {
+                if(c > flag_3)
+                    flag_3 = 1;
+                else return 0;
+            }
+
+        }
+        i++;
+        c++;
+    }
+    if(flag_1 && flag_2 && flag_3)
+        return 1;
 }
