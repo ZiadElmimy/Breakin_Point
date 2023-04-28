@@ -121,6 +121,9 @@ int Check_String(char *str, Stack *ps)
     char i = 0, flag_1 = 0, flag_2 = 0, flag_3 = 0, c = 0;
     char e;
     StackNode *p_0 = ps->top->value;
+    while(str[i++]);
+    str[i-1] = '\0';
+    i = 0;
     while(str[i]!= '\0')
     {
         Push(str[i],&ps);
