@@ -112,7 +112,7 @@ void Copy_Stack(Stack *ps, Stack *Copy)
     }
     for(int i = 0; i < ps->stack_size; i++)
     {
-        Push(arr[(ps->stack_size)-i],&Copy);
+        Push(arr[(ps->stack_size-1)-i],Copy);
     }
 }
 
@@ -126,14 +126,14 @@ int Check_String(char *str, Stack *ps)
     i = 0;
     while(str[i]!= '\0')
     {
-        Push(str[i],&ps);
+        Push(str[i],ps);
         i++;
     }
     printf("the string pushed to the stack\n");
     i = 0;
     while(ps->stack_size)
     {
-        e = Pop(&ps);
+        e = Pop(ps);
         ps->stack_size--;
         if(i = 0 && (e == '[' || e == '{' || e == '(' ) )
             return 0;
